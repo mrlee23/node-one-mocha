@@ -7,7 +7,9 @@ function OneMocha (obj, options = {}) {
 			name != null && (methodName = name);
 			return '#.'+[methodName, desc].filter(e => e != null).join(': ');
 		},
-		executionFormat: "#.%s(%s) => %s"
+		executionFormat: (asrt, args, expected) => {
+			return sprintf("#.%s(%s) => %s", asrt, serializeText(args), expected);
+		}
 	});
 	if (typeof obj !== 'object') throw new Error(`Need object or array`);
 	!Array.isArray(obj) && (obj = [obj]);
@@ -42,6 +44,15 @@ function OneMocha (obj, options = {}) {
 			});
 		});
 	});
+}
+
+function serializeText (arg) {
+	if (typeof arg === 'string') {
+		arg = `"${arg}"`;
+	} else if (Array.isArray(arg)) {
+		arg = arg.map(a => serializeText(a)).join(', ');
+	}
+	return arg;
 }
 
 function descHandler (format, ...args) {
