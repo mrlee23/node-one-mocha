@@ -1,17 +1,27 @@
-const assert = require('assert');
+const assert = require('assert'),
+	  sprintf = require('sprintf').sprintf;
 
-function OneMocha (obj) {
+function OneMocha (obj, options = {}) {
+	Object.assign(options, {
+		methodFormat: (methodName, name, desc) => {
+			name != null && (methodName = name);
+			return '#.'+[methodName, desc].filter(e => e != null).join(': ');
+		},
+		executionFormat: "#.%s(%s) => %s"
+	});
 	if (typeof obj !== 'object') throw new Error(`Need object or array`);
 	!Array.isArray(obj) && (obj = [obj]);
 	obj.forEach(o => {
 		let m = o.method,
+			name = o.name,
 			desc = o.desc,
 			test = o.test;
 		if (typeof m !== 'function') throw new Error(`method(${m}) is not a function.`);
+		if (name != null && typeof name !== 'string') throw new Error(`name(${name}) is not a string.`);
 		if (desc != null && typeof desc !== 'string') throw new Error(`desc(${desc}) is not a string.`);
 		if (typeof test !== 'object') throw new Error(`test needs object or array.`);
 		!Array.isArray(test) && (test = [test]);
-		describe(desc || `#.${m.name}()`, function () {
+		describe(descHandler(options.methodFormat, m.name, name, desc), function () {
 			test.forEach(t => {
 				let asrt = t.assert,
 					msg = t.message,
@@ -24,7 +34,7 @@ function OneMocha (obj) {
 					argsArr.forEach(args => {
 						if (!Array.isArray(args)) throw new Error(`test.args has a member of non array.`);
 						let expected = args.pop();
-						it(`#.${a}(${args}) => ${expected}`, function () {
+						it(descHandler(options.executionFormat, a, args, expected), function () {
 							assertHandler(a, m, args, expected, msg);
 						});
 					});
@@ -32,6 +42,16 @@ function OneMocha (obj) {
 			});
 		});
 	});
+}
+
+function descHandler (format, ...args) {
+	if (typeof format === 'function') {
+		return format.apply(format, args);
+	} else if (typeof format === 'string') {
+		return sprintf.apply(sprintf, [format].concat(args));
+	} else {
+		return args.join(', ');
+	}
 }
 
 function callMethod (method, args) {

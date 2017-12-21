@@ -21,12 +21,15 @@ const simple2 = {
 const complex1 =
 	  [{
 		  method: () => { return {a: true, b: false};},
+		  desc: "This is sample",
+		  name: "Complex1-1",
 		  test: {
 			  assert: 'deepEqual',
 			  args: [[{a: true, b: false}]]
 		  }},
 	   {
 		   method: () => 1,
+		   name: "Complex1-2",
 		   test:
 		   [
 			   {
@@ -42,6 +45,7 @@ const complex1 =
 
 const typeErrTester = [{
 	method: oneMocha,
+	name: "oneMochaTest",
 	test: [{assert: 'throws',
 			args: [["A", Error],
 				   [1, Error],
