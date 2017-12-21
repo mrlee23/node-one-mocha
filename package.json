@@ -1,0 +1,26 @@
+{
+	"name": "one-mocha",
+	"version": "0.0.1",
+	"description": "Generate mocha tester by one object.",
+	"main": "index.js",
+	"directories": {
+		"test": "test"
+	},
+	"scripts": {
+		"test": "mocha test/index.js"
+	},
+	"keywords": [
+		"test",
+		"mocha",
+		"generator"
+	],
+	"author": {
+		"name": "Dongsoo Lee",
+		"email": "mrlee_23@naver.com",
+		"url": "https://github.com/mrlee23"
+	}
+	"license": "MIT",
+	"dependencies": {
+		"mocha": "^4.0.1"
+	}
+}

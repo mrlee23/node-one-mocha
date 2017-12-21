@@ -1,0 +1,115 @@
+#+TITLE: node-one-mocha
+#+DATE: 2017-12-21 
+#+AUTHOR: Dongsoo Lee
+#+EMAIL: mrlee_23@naver.com
+
+Generate mocha tester by one object.
+
+* How to use
+
+#+NAME: how-to-use
+  #+BEGIN_SRC js :results output :eval never-export :exports both
+    const genMocha = require('one-mocha');
+    var sample =
+        [{
+            method: (str) => typeof str === 'string',
+            test: {
+                assert: 'equal',
+                args: [["A", true],
+                       ["B", true],
+                       [1, false]]
+            }
+        },
+         {
+             method: (str) => typeof str === 'number',
+             test: {
+                 assert: 'equal',
+                 args: [["A", false],
+                        ["B", false],
+                        [1, true]]
+             }
+         }];
+    genMocha(sample);
+  #+END_SRC
+
+* Make test object
+
+- One method, One test, One execution.
+#+NAME: example-1
+  #+BEGIN_SRC js2 :results output :eval never-export :exports both
+    var test1 =
+        {
+            method: path.resolve,
+            test: {
+                assert: 'equal',
+                args: [["./", __dirname]]
+            }
+        };
+  #+END_SRC
+
+- One method, One test, Multiple executions.
+#+NAME: example-1
+  #+BEGIN_SRC js2 :results output :eval never-export :exports both
+    var test2 =
+        {
+            method: (str) => typeof str === 'string',
+            test: {
+                assert: 'equal',
+                args: [["A", true],
+                       ["B", true],
+                       [1, false]]
+            }
+        };
+  #+END_SRC
+
+- One method, Multiple tests.
+#+NAME: example-2
+  #+BEGIN_SRC js2 :results output :eval never-export :exports both
+    var test3 =
+        {
+            method: (str) => typeof str === 'string',
+            test:
+            [{
+                assert: 'equal',
+                args: [["A", true],
+                       ["B", true],
+                       [1, false]]
+            },
+             {
+                 assert: 'notEqual',
+                 args: [["A", false],
+                        ["B", false],
+                        [1, true]]
+             }
+            ]
+        };
+
+  #+END_SRC
+
+- Multiple methods
+#+NAME: example-2
+  #+BEGIN_SRC js2 :results output :eval never-export :exports both
+    var test4 =
+        [{
+            method: (str) => typeof str === 'string',
+            test: {
+                assert: 'equal',
+                args: [["A", true],
+                       ["B", true],
+                       [1, false]]
+            }
+        },
+         {
+             method: (str) => typeof str === 'number',
+             test: {
+                 assert: 'equal',
+                 args: [["A", false],
+                        ["B", false],
+                        [1, true]]
+             }
+         }];
+  #+END_SRC
+
+* Dependency
+
+- [[https://github.com/mochajs/mocha][mocha]]
