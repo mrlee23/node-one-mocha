@@ -1,14 +1,14 @@
-#+TITLE: node-one-mocha
-#+DATE: 2017-12-21 
-#+AUTHOR: Dongsoo Lee
-#+EMAIL: mrlee_23@naver.com
+# node-one-mocha
 
-Generate mocha tester by one object.
+>Generate mocha tester by one object.
 
-* How to use
+## Install
+```bash
+npm install one-mocha
+```
 
-#+NAME: how-to-use
-  #+BEGIN_SRC js :results output :eval never-export :exports both
+## How to use
+```javascript
     const genMocha = require('one-mocha');
     var sample =
         [{
@@ -30,13 +30,19 @@ Generate mocha tester by one object.
              }
          }];
     genMocha(sample);
-  #+END_SRC
+```
 
-* Make test object
+## Object structure
+- `method <function>` : anything method to test.
+- `test <Object|Array>` : the test object using `method`.
+    - `assert <string>` : method name of [https://nodejs.org/api/assert.html](assert).
+    - `args <Array>` : the argument array for the execution unit.
+        - `execArgs` : the last argument uses as assert's `expected` argument, rest of arguments are used in method's arguments.
+
+## Make test object
 
 - One method, One test, One execution.
-#+NAME: example-1
-  #+BEGIN_SRC js2 :results output :eval never-export :exports both
+```javascript
     var test1 =
         {
             method: path.resolve,
@@ -45,11 +51,10 @@ Generate mocha tester by one object.
                 args: [["./", __dirname]]
             }
         };
-  #+END_SRC
+```
 
 - One method, One test, Multiple executions.
-#+NAME: example-1
-  #+BEGIN_SRC js2 :results output :eval never-export :exports both
+```javascript
     var test2 =
         {
             method: (str) => typeof str === 'string',
@@ -60,11 +65,10 @@ Generate mocha tester by one object.
                        [1, false]]
             }
         };
-  #+END_SRC
-
+```
+		
 - One method, Multiple tests.
-#+NAME: example-2
-  #+BEGIN_SRC js2 :results output :eval never-export :exports both
+```javascript
     var test3 =
         {
             method: (str) => typeof str === 'string',
@@ -84,11 +88,10 @@ Generate mocha tester by one object.
             ]
         };
 
-  #+END_SRC
+```
 
 - Multiple methods
-#+NAME: example-2
-  #+BEGIN_SRC js2 :results output :eval never-export :exports both
+```javascript
     var test4 =
         [{
             method: (str) => typeof str === 'string',
@@ -108,8 +111,8 @@ Generate mocha tester by one object.
                         [1, true]]
              }
          }];
-  #+END_SRC
+```
+		 
+## Dependency
 
-* Dependency
-
-- [[https://github.com/mochajs/mocha][mocha]]
+- [https://github.com/mochajs/mocha](mocha)
