@@ -35,11 +35,11 @@ npm install one-mocha
 ## Object structure
 - `method <function>` : anything method to test.
 - `test <Object|Array>` : the test object using `method`.
-    - `assert <string>` : method name of [https://nodejs.org/api/assert.html](assert).
+    - `assert <string>` : method name of [assert](https://nodejs.org/api/assert.html).
     - `args <Array>` : the argument array for the execution unit.
         - `execArgs` : the last argument uses as assert's `expected` argument, rest of arguments are used in method's arguments.
 
-## Make test object
+## Example of making test object
 
 - One method, One test, One execution.
 ```javascript
@@ -115,4 +115,4 @@ npm install one-mocha
 		 
 ## Dependency
 
-- [https://github.com/mochajs/mocha](mocha)
+- [mocha](https://github.com/mochajs/mocha)
