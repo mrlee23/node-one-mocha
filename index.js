@@ -62,7 +62,11 @@ function serializeText (arg, len, lenPos) {
 	} else if (Array.isArray(arg)) {
 		arg = arg.map(a => serializeText(a, len, lenPos)).join(', ');
 	} else if (typeof arg === 'function') {
-		arg = '#.' + arg.name || arg;
+		arg = `[Function: ${arg.name || arg}]`;
+	} else if (typeof arg === undefined) {
+		arg = "undefined";
+	} else if (typeof arg === null) {
+		arg = "null";
 	}
 	return arg;
 }

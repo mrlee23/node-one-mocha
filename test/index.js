@@ -65,4 +65,4 @@ const typeErrTester = [{
 					  [complex1, undefined]]
 		   }]
 }];
-oneMocha(typeErrTester, {truncate: 50, truncatePos: 30});
+oneMocha(typeErrTester, {truncate: 50});
