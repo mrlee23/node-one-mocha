@@ -1,15 +1,17 @@
 const assert = require('assert'),
-	  sprintf = require('sprintf').sprintf;
+	  sprintf = require('sprintf').sprintf,
+	  smartTruncate = require('smart-truncate');
 
 function OneMocha (obj, options = {}) {
+	let truncate = 25;
 	Object.assign(options, {
+		truncate: truncate,
 		methodFormat: (methodName, name, desc) => {
 			name != null && (methodName = name);
 			return '#.'+[methodName, desc].filter(e => e != null).join(': ');
 		},
-		executionFormat: (asrt, args, expected) => {
-			return sprintf("#.%s(%s) => %s", asrt, serializeText(args), expected);
-		}
+		assertFormat: "#.%s",
+		executionFormat: (args, expected) => sprintf("#.(%s) => %s", serializeText(args, options.truncate || truncate), serializeText(expected, options.truncate || truncate))
 	});
 	if (typeof obj !== 'object') throw new Error(`Need object or array`);
 	!Array.isArray(obj) && (obj = [obj]);
@@ -34,11 +36,13 @@ function OneMocha (obj, options = {}) {
 				!Array.isArray(asrt) && (asrt = [asrt]);
 				asrt.forEach(a => {
 					if (typeof assert[a] !== 'function') throw new Error(`test.assert(${a}) is not a method of assert.`);
-					argsArr.forEach(args => {
-						if (!Array.isArray(args)) throw new Error(`test.args has a member of non array.`);
-						let expected = args.pop();
-						it(descHandler(options.executionFormat, a, args, expected), function () {
-							assertHandler(a, m, thisArg, args, expected, msg);
+					describe(descHandler(options.assertFormat, a), function () {
+						argsArr.forEach(args => {
+							if (!Array.isArray(args)) throw new Error(`test.args has a member of non array.`);
+							let expected = args.pop();
+							it(descHandler(options.executionFormat, args, expected), function () {
+								assertHandler(a, m, thisArg, args, expected, msg);
+							});
 						});
 					});
 				});
@@ -47,12 +51,15 @@ function OneMocha (obj, options = {}) {
 	});
 }
 
-function serializeText (arg) {
+function serializeText (arg, len) {
 	if (typeof arg === 'string') {
 		arg = `"${arg}"`;
 	} else if (Array.isArray(arg)) {
 		arg = arg.map(a => serializeText(a)).join(', ');
+	} else if (typeof arg === 'function') {
+		arg = '#.' + arg.name || arg;
 	}
+	typeof arg === 'string' && typeof len === 'number' && (arg = smartTruncate(arg, len, len/3));
 	return arg;
 }
 

@@ -47,7 +47,7 @@ const typeErrTester = [{
 	method: oneMocha,
 	name: "oneMochaTest",
 	test: [{assert: 'throws',
-			args: [["A", Error],
+			args: [["Asaldkfjsdalfjsdalfjsladkfjldksafjlasdfjakldsj", Error],
 				   [1, Error],
 				   [{}, Error],
 				   [{method: () => {},
