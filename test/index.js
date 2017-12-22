@@ -47,7 +47,7 @@ const typeErrTester = [{
 	method: oneMocha,
 	name: "oneMochaTest",
 	test: [{assert: 'throws',
-			args: [["Asaldkfjsdalfjsdalfjsladkfjldksafjlasdfjakldsj", Error],
+			args: [["abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz", Error],
 				   [1, Error],
 				   [{}, Error],
 				   [{method: () => {},
@@ -65,4 +65,4 @@ const typeErrTester = [{
 					  [complex1, undefined]]
 		   }]
 }];
-oneMocha(typeErrTester);
+oneMocha(typeErrTester, {truncate: 50, truncatePos: 30});

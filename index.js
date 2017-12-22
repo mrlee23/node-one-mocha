@@ -3,16 +3,20 @@ const assert = require('assert'),
 	  smartTruncate = require('smart-truncate');
 
 function OneMocha (obj, options = {}) {
-	let truncate = 25;
-	Object.assign(options, {
+	let truncate = 25,
+		truncatePos = truncate/3;
+	options = Object.assign({
 		truncate: truncate,
+		truncatePos: truncatePos,
 		methodFormat: (methodName, name, desc) => {
 			name != null && (methodName = name);
 			return '#.'+[methodName, desc].filter(e => e != null).join(': ');
 		},
 		assertFormat: "#.%s",
-		executionFormat: (args, expected) => sprintf("#.(%s) => %s", serializeText(args, options.truncate || truncate), serializeText(expected, options.truncate || truncate))
-	});
+		executionFormat: (args, expected) => sprintf("#.(%s) => %s",
+													 serializeText(args, options.truncate || truncate, options.truncatePos || truncatePos),
+													 serializeText(expected, options.truncate || truncate , options.truncatePos || truncatePos))
+	}, options);
 	if (typeof obj !== 'object') throw new Error(`Need object or array`);
 	!Array.isArray(obj) && (obj = [obj]);
 	obj.forEach(o => {
@@ -51,15 +55,15 @@ function OneMocha (obj, options = {}) {
 	});
 }
 
-function serializeText (arg, len) {
+function serializeText (arg, len, lenPos) {
+	typeof arg === 'string' && typeof len === 'number' && (arg = smartTruncate(arg, len, lenPos));
 	if (typeof arg === 'string') {
 		arg = `"${arg}"`;
 	} else if (Array.isArray(arg)) {
-		arg = arg.map(a => serializeText(a)).join(', ');
+		arg = arg.map(a => serializeText(a, len, lenPos)).join(', ');
 	} else if (typeof arg === 'function') {
 		arg = '#.' + arg.name || arg;
 	}
-	typeof arg === 'string' && typeof len === 'number' && (arg = smartTruncate(arg, len, len/3));
 	return arg;
 }
 
