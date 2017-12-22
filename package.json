@@ -1,6 +1,6 @@
 {
   "name": "one-mocha",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Generate mocha tester by one object.",
   "main": "index.js",
   "directories": {
