@@ -40,7 +40,7 @@ npm install one-mocha
 ## Object structure
 - `method <function>` : Anything method to test.
 - `name <string>` : Use an alternative name instead of the method name. It is useful when the method like prototype method has no name.
-- `this <Object>` : Used for =this= argument of method to call.
+- `this <Object>` : Used for `this` argument of method to call.
 - `desc <string>` : The description of methods functionality.
 - `test <Object|Array>` : The test object using `method`.
     - `assert <string>` : Method name of [assert](https://nodejs.org/api/assert.html).
