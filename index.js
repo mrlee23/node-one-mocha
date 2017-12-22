@@ -15,6 +15,7 @@ function OneMocha (obj, options = {}) {
 	!Array.isArray(obj) && (obj = [obj]);
 	obj.forEach(o => {
 		let m = o.method,
+			thisArg = o.this,
 			name = o.name,
 			desc = o.desc,
 			test = o.test;
@@ -37,7 +38,7 @@ function OneMocha (obj, options = {}) {
 						if (!Array.isArray(args)) throw new Error(`test.args has a member of non array.`);
 						let expected = args.pop();
 						it(descHandler(options.executionFormat, a, args, expected), function () {
-							assertHandler(a, m, args, expected, msg);
+							assertHandler(a, m, thisArg, args, expected, msg);
 						});
 					});
 				});
@@ -65,32 +66,32 @@ function descHandler (format, ...args) {
 	}
 }
 
-function callMethod (method, args) {
-	return method.apply(method, args);
+function callMethod (method, thisArg, args) {
+	return method.apply(thisArg, args);
 }
 
-function assertHandler (asrt, method, args, expected, msg) {
+function assertHandler (asrt, method, thisArg, args, expected, msg) {
 	switch (asrt) {
 	case 'ifError':
-		assert.ifError(callMethod(method, args));
+		assert.ifError(callMethod(method, thisArg, args));
 		break;
 	case 'ok':
-		assert.ok(callMethod(method, args), msg);
+		assert.ok(callMethod(method, thisArg, args), msg);
 		break;
 	case 'throws':
 		assert.throws(
-			() => { callMethod(method, args); },
+			() => { callMethod(method, thisArg, args); },
 			expected
 		);
 		break;
 	case 'doesNotThrow':
 		assert.doesNotThrow(
-			() => { callMethod(method, args); },
+			() => { callMethod(method, thisArg, args); },
 			expected
 		);
 		break;
 	default:
-		assert[asrt](callMethod(method, args), expected, msg);
+		assert[asrt](callMethod(method, thisArg, args), expected, msg);
 		break;
 	}
 }
