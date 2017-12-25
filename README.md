@@ -14,29 +14,62 @@ npm install one-mocha
 
 ## How to use
 ```javascript
-    const oneMocha = require('one-mocha');
-    var sample =
-        [{
-            method: (str) => typeof str === 'string',
-            test: {
-                assert: 'equal',
-                args: [["A", true],
-                       ["B", true],
-                       [1, false]]
-            }
-        },
-         {
-             method: (str) => typeof str === 'number',
-             test: {
-                 assert: 'equal',
-                 args: [["A", false],
-                        ["B", false],
-                        [1, true]]
-             }
-         }];
-    oneMocha(sample);
+const oneMocha = require('one-mocha');
+var sample =
+    [{
+        method: (str) => typeof str === 'string',
+        test: {
+            assert: 'equal',
+            args: [["A", true],
+                   ["B", true],
+                   [1, false]]
+        }
+    },
+     {
+         method: (str) => typeof str === 'number',
+         test: {
+             assert: 'equal',
+             args: [["A", false],
+                    ["B", false],
+                    [1, true]]
+         }
+     }];
+oneMocha(sample);
 ```
 
+## Outputs
+```bash
+#.oneMochaTest
+  #.throws
+    ✓ #.("abcdefgh…MNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz") => [Function: Error]
+    ✓ #.(1) => [Function: Error]
+    ✓ #.([object Object]) => [Function: Error]
+    ✓ #.([object Object]) => [Function: Error]
+    ✓ #.([object Object]) => [Function: Error]
+  #.doesNotThrow
+    ✓ #.([object Object]) => undefined
+    ✓ #.([object Object]) => undefined
+    ✓ #.([object Object], [object Object]) => undefined
+```
+
+```bash
+#.method
+  #.equal
+    ✓ #.() => true
+#.method
+  #.equal
+    ✓ #.("A") => true
+    ✓ #.("B") => true
+    ✓ #.(1) => false
+#.Complex1-1: This is sample
+  #.deepEqual
+    ✓ #.() => [object Object]
+#.Complex1-2
+  #.equal
+    ✓ #.() => 1
+  #.notEqual
+    ✓ #.() => 2
+```
 ## Object structure
 - `method <function>` : Anything method to test.
 - `name <string>` : Use an alternative name instead of the method name. It is useful when the method like prototype method has no name.
@@ -51,74 +84,74 @@ npm install one-mocha
 
 - One method, One test, One execution.
 ```javascript
-    var test1 =
-        {
-            method: path.resolve,
-            test: {
-                assert: 'equal',
-                args: [["./", __dirname]]
-            }
-        };
+var test1 =
+    {
+        method: path.resolve,
+        test: {
+            assert: 'equal',
+            args: [["./", __dirname]]
+        }
+    };
 ```
 
 - One method, One test, Multiple executions.
 ```javascript
-    var test2 =
-        {
-            method: (str) => typeof str === 'string',
-            test: {
-                assert: 'equal',
-                args: [["A", true],
-                       ["B", true],
-                       [1, false]]
-            }
-        };
+var test2 =
+    {
+        method: (str) => typeof str === 'string',
+        test: {
+            assert: 'equal',
+            args: [["A", true],
+                   ["B", true],
+                   [1, false]]
+        }
+    };
 ```
 		
 - One method, Multiple tests.
 ```javascript
-    var test3 =
-        {
-            method: (str) => typeof str === 'string',
-            test:
-            [{
-                assert: 'equal',
-                args: [["A", true],
-                       ["B", true],
-                       [1, false]]
-            },
-             {
-                 assert: 'notEqual',
-                 args: [["A", false],
-                        ["B", false],
-                        [1, true]]
-             }
-            ]
-        };
+var test3 =
+    {
+        method: (str) => typeof str === 'string',
+        test:
+        [{
+            assert: 'equal',
+            args: [["A", true],
+                   ["B", true],
+                   [1, false]]
+        },
+         {
+             assert: 'notEqual',
+             args: [["A", false],
+                    ["B", false],
+                    [1, true]]
+         }
+        ]
+    };
 
 ```
 
 - Multiple methods
 ```javascript
-    var test4 =
-        [{
-            method: (str) => typeof str === 'string',
-            test: {
-                assert: 'equal',
-                args: [["A", true],
-                       ["B", true],
-                       [1, false]]
-            }
-        },
-         {
-             method: (str) => typeof str === 'number',
-             test: {
-                 assert: 'equal',
-                 args: [["A", false],
-                        ["B", false],
-                        [1, true]]
-             }
-         }];
+var test4 =
+    [{
+        method: (str) => typeof str === 'string',
+        test: {
+            assert: 'equal',
+            args: [["A", true],
+                   ["B", true],
+                   [1, false]]
+        }
+    },
+     {
+         method: (str) => typeof str === 'number',
+         test: {
+             assert: 'equal',
+             args: [["A", false],
+                    ["B", false],
+                    [1, true]]
+         }
+     }];
 ```
 
 ## Customize output format
