@@ -39,37 +39,19 @@ oneMocha(sample);
 
 ## Outputs
 ```bash
-#.oneMochaTest
-  #.throws
-    ✓ #.("abcdefgh…MNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz") => [Function: Error]
-    ✓ #.(1) => [Function: Error]
-    ✓ #.([object Object]) => [Function: Error]
-    ✓ #.([object Object]) => [Function: Error]
-    ✓ #.([object Object]) => [Function: Error]
-  #.doesNotThrow
-    ✓ #.([object Object]) => undefined
-    ✓ #.([object Object]) => undefined
-    ✓ #.([object Object], [object Object]) => undefined
-```
-
-```bash
-#.method
-  #.equal
-    ✓ #.() => true
 #.method
   #.equal
     ✓ #.("A") => true
     ✓ #.("B") => true
     ✓ #.(1) => false
-#.Complex1-1: This is sample
-  #.deepEqual
-    ✓ #.() => [object Object]
-#.Complex1-2
+
+#.method
   #.equal
-    ✓ #.() => 1
-  #.notEqual
-    ✓ #.() => 2
+    ✓ #.("A") => false
+    ✓ #.("B") => false
+    ✓ #.(1) => true
 ```
+
 ## Object structure
 - `method <function>` : Anything method to test.
 - `name <string>` : Use an alternative name instead of the method name. It is useful when the method like prototype method has no name.
