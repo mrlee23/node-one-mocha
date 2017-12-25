@@ -60,7 +60,7 @@ function serializeText (arg, len, lenPos) {
 	if (typeof arg === 'string') {
 		arg = `"${arg}"`;
 	} else if (Array.isArray(arg)) {
-		arg = arg.map(a => serializeText(a, len, lenPos)).join(', ');
+		arg = "[" + arg.map(a => serializeText(a, len, lenPos)).join(', ') + "]";
 	} else if (typeof arg === 'function') {
 		arg = `[Function: ${arg.name || arg}]`;
 	} else if (typeof arg === undefined) {
