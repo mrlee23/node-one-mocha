@@ -39,6 +39,15 @@ oneMocha(sample);
 
 ## Outputs
 ```bash
+[method block]
+  [assert block]
+    ✓ [execution block]
+```
+- method block : This block describes method name or use defined name and can be customized using `methodFormat` option. (default: #.<method name>: <describe>)
+- assert block : This block describes assert method name and can be customized using `assertFormat` option. (default: #.<assert method name>)
+- execution block : This block is checking assertion results. It describes arguments and expected argument and also customizable using `executionFormat` option. (default: #.(<arguments>) => <expected argument>
+### Example
+```bash
 #.method
   #.equal
     ✓ #.("A") => true
