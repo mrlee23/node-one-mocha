@@ -1,3 +1,18 @@
+/**
+ * @fileOverview Generate mocha tester by one object.
+ * @name index.js
+ * @author Dongsoo Lee <mrlee_23@naver.com>
+ * @copyright 2017 Dongsoo Lee <mrlee_23@naver.com>
+ * @module index
+ * @version 0.0.8
+ * @since 0.0.8
+ * @created 2017-12-26
+ *
+ * @requires module:assert
+ * @requires module:sprint
+ * @requires module:smart-truncate
+ */
+
 const assert = require('assert'),
 	  sprintf = require('sprintf').sprintf,
 	  smartTruncate = require('smart-truncate');
