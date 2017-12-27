@@ -1,4 +1,4 @@
-# node-one-mocha
+# node-one-mocha ![Build Status](https://secure.travis-ci.org/mrlee23/node-one-mocha.png)
 
 >Generate mocha tester by one object.
 
