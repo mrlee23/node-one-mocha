@@ -1,4 +1,8 @@
-# node-one-mocha [![Build Status](https://secure.travis-ci.org/mrlee23/node-one-mocha.png)](https://travis-ci.org/mrlee23/node-one-mocha)
+# node-one-mocha
+
+[![Build Status](https://secure.travis-ci.org/mrlee23/node-one-mocha.png)](https://travis-ci.org/mrlee23/node-one-mocha)
+[![Version](https://img.shields.io/npm/v/one-mocha.svg)](https://www.npmjs.com/package/one-mocha)
+[![License](https://img.shields.io/github/license/mrlee23/node-one-mocha.svg)](https://github.com/mrlee23/node-one-mocha/blob/master/LICENSE)
 
 [![NPM](https://nodei.co/npm/one-mocha.png)](https://nodei.co/npm/one-mocha/)
 
