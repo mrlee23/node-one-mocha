@@ -24,6 +24,8 @@ const oneMocha = require('one-mocha');
 var sample =
     [{
         method: (str) => typeof str === 'string',
+		name: "isString",
+		desc: "Check string type",
         test: {
             assert: 'equal',
             args: [["A", true],
@@ -33,6 +35,8 @@ var sample =
     },
      {
          method: (str) => typeof str === 'number',
+		 name: "isNumber",
+		 desc: "Check number type",
          test: {
              assert: 'equal',
              args: [["A", false],
@@ -54,13 +58,13 @@ oneMocha(sample);
 - execution block : This block is checking assertion results. It describes arguments and expected argument and also customizable using `executionFormat` option. (default: #.(<arguments>) => <expected argument>
 ### Example
 ```bash
-#.method
+#.isString: Check string type
   #.equal
     ✓ #.("A") => true
     ✓ #.("B") => true
     ✓ #.(1) => false
 
-#.method
+#.isNumber: Check number type
   #.equal
     ✓ #.("A") => false
     ✓ #.("B") => false
