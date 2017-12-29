@@ -4,8 +4,8 @@
  * @author Dongsoo Lee <mrlee_23@naver.com>
  * @copyright 2017 Dongsoo Lee <mrlee_23@naver.com>
  * @module index
- * @version 0.0.8
- * @since 0.0.8
+ * @version 0.0.9
+ * @since 0.0.1
  * @created 2017-12-26
  *
  * @requires module:assert
