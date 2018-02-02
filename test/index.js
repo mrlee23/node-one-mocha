@@ -66,3 +66,19 @@ const typeErrTester = [{
 		   }]
 }];
 oneMocha(typeErrTester, {truncate: 50});
+
+oneMocha([
+	{
+		method: (arg1, arg2) => arg1 == arg2,
+		name: 'methodName',
+		desc: 'This is describe of test',
+		test: [
+			{
+				assert: 'equal',
+				desc: 'This is describe of assert',
+				args: [[1, 1, true],
+					   [2, 2, true]]
+			}
+		]
+	}
+]);

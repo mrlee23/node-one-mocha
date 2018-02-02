@@ -4,7 +4,7 @@
  * @author Dongsoo Lee <mrlee_23@naver.com>
  * @copyright 2017 Dongsoo Lee <mrlee_23@naver.com>
  * @module index
- * @version 0.0.9
+ * @version 0.1.0
  * @since 0.0.1
  * @created 2017-12-26
  *
@@ -25,9 +25,11 @@ function OneMocha (obj, options = {}) {
 		truncatePos: truncatePos,
 		methodFormat: (methodName, name, desc) => {
 			name != null && (methodName = name);
-			return '#.'+[methodName, desc].filter(e => e != null).join(': ');
+			return desc ? `${desc} [#.${methodName}]` : `#.${methodName}`;
 		},
-		assertFormat: "#.%s",
+		assertFormat: (assertName, desc) => {
+			return desc ? `${desc} <${assertName}>` : `${assertName}`;
+		},
 		executionFormat: (args, expected) => sprintf("#.(%s) => %s",
 													 serializeText(args, options.truncate || truncate, options.truncatePos || truncatePos),
 													 serializeText(expected, options.truncate || truncate , options.truncatePos || truncatePos))
@@ -48,6 +50,7 @@ function OneMocha (obj, options = {}) {
 		describe(descHandler(options.methodFormat, m.name, name, desc), function () {
 			test.forEach(t => {
 				let asrt = t.assert,
+					asrtDesc = t.desc,
 					msg = t.message,
 					argsArr = t.args;
 				if (typeof asrt !== 'string' && Array.isArray(asrt)) throw new Error(`test.assert needs object or array.`);
@@ -55,7 +58,7 @@ function OneMocha (obj, options = {}) {
 				!Array.isArray(asrt) && (asrt = [asrt]);
 				asrt.forEach(a => {
 					if (typeof assert[a] !== 'function') throw new Error(`test.assert(${a}) is not a method of assert.`);
-					describe(descHandler(options.assertFormat, a), function () {
+					describe(descHandler(options.assertFormat, a, asrtDesc), function () {
 						argsArr.forEach(args => {
 							if (!Array.isArray(args)) throw new Error(`test.args has a member of non array.`);
 							let expected = args.pop();
